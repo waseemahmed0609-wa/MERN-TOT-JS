@@ -25,6 +25,7 @@ console.log("fetch data");
 cb();
     },4000)
     
+    
 }
 function displayData(){
     setTimeout(()=>{
