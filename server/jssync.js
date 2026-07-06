@@ -1,47 +1,53 @@
-function register(cb){
-    setTimeout(()=>{
-     console.log("Register Here");
-     cb();
+function register(){
+    return new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+       console.log("Register Here");
+       resolve();
     },8000)
-    
+    }) 
 }
-function sendEmail(cb){
-    setTimeout(()=>{
+function sendEmail(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
       console.log("Send Email");
-      cb();
+      resolve();
     },2000)
+    }) 
     
 }
-function login(cb){
-    setTimeout(()=>{
+function login(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
        console.log("Login Here");
-       cb();
+       reject("Login Failed");
     },1500)
+    })
   
 }
-function getData(cb){
-    setTimeout(()=>{
+function getData(){
+    return new Promise((resolve,reject)=>{
+       setTimeout(()=>{
 console.log("fetch data");
-cb();
+resolve();
     },4000)
-    
+    })
     
 }
 function displayData(){
-    setTimeout(()=>{
+    return new Promise((resolve,reject)=>{
+      setTimeout(()=>{
     console.log("Display Data");
+    resolve();
     },3000)
+    })
     
 }
 
-
-register(()=>{
-       sendEmail(()=>{
-            login(()=>{
-                getData(()=>{
-                    displayData();
-                })
-            });
-       });
-});
-console.log("other applications")
+register().then(sendEmail)
+        .then(login)
+        .then(getData)
+        .then(displayData)
+        .catch((err)=>{
+            console.log("Error",err);
+        })
+console.log("call other Application");
